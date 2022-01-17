@@ -5,8 +5,15 @@ os_main:
 
     mov bx, osloadedstr ; load  str for puts
     call puts           ; print loaded str
-
     call nextline       ; move to next like
+
+    mov bx, initdrivestr
+    call puts
+    call nextline
+    mov dl, 80h
+    jmp init_drive
+    init_drive_pt0:
+
     os_main_pt0:        ; jump point
 
     call getc           ; read next character
@@ -23,7 +30,10 @@ os_main:
 %include "os/lib/text_graphics.asm"
 %include "os/lib/text_input.asm"
 %include "os/lib/graphics.asm"
+%include "os/lib/drives.asm"
 
 ; Variable Space
 osloadedstr:
     db "OS Loaded",0
+initdrivestr:
+    db "Initilizing drive",0
